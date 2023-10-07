@@ -23,3 +23,19 @@ $ yarn add @nestjs/typeorm typeorm mssql
       },
     }),
 ```
+### Git Flow
+```bash
+$ git flow init -f
+$ git flow feature start users-controller
+```
+
+#### Users controller
+> Into src folder
+```bash
+$ nest generate module user
+```
+> into user folder
+```bash
+$ nest generate service user
+$ nest generate controller user
+```
