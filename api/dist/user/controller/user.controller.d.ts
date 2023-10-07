@@ -4,7 +4,8 @@ import { User } from '../models/user.interface';
 export declare class UserController {
     private userService;
     constructor(userService: UserService);
-    create(user: User): Observable<User>;
+    create(user: User): Observable<User | object>;
+    login(user: User): Observable<object>;
     findOne(params: any): Observable<User>;
     findAll(): Observable<User[]>;
     deleteOne(id: string): Observable<any>;

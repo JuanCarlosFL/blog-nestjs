@@ -21,7 +21,12 @@ let UserController = class UserController {
         this.userService = userService;
     }
     create(user) {
-        return this.userService.create(user);
+        return this.userService.create(user).pipe((0, rxjs_1.map)((user) => user), (0, rxjs_1.catchError)((err) => (0, rxjs_1.of)({ error: err.message })));
+    }
+    login(user) {
+        return this.userService.login(user).pipe((0, rxjs_1.map)((jwt) => {
+            return { access_token: jwt };
+        }));
     }
     findOne(params) {
         return this.userService.findOne(params.id);
@@ -44,6 +49,13 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", rxjs_1.Observable)
 ], UserController.prototype, "create", null);
+__decorate([
+    (0, common_1.Post)('login'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", rxjs_1.Observable)
+], UserController.prototype, "login", null);
 __decorate([
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)()),

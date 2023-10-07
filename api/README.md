@@ -27,6 +27,12 @@ $ yarn add @nestjs/typeorm typeorm mssql
 ```bash
 $ git flow init -f
 $ git flow feature start users-controller
+
+$ git add -A
+$ git commit -m "User controller"
+$ git push
+$ git flow feature finish
+$ git status
 ```
 
 #### Users controller
@@ -38,4 +44,12 @@ $ nest generate module user
 ```bash
 $ nest generate service user
 $ nest generate controller user
+```
+
+### JWT
+```bash
+$ nest generate module auth
+$ yarn add @nestjs/jwt
+$ nest generate service auth/auth
+$ yarn add bcrypt
 ```

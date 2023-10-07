@@ -12,6 +12,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserEntity = void 0;
 const typeorm_1 = require("typeorm");
 let UserEntity = class UserEntity {
+    emailToLowerCase() {
+        this.email = this.email.toLocaleLowerCase();
+    }
 };
 exports.UserEntity = UserEntity;
 __decorate([
@@ -26,6 +29,20 @@ __decorate([
     (0, typeorm_1.Column)({ unique: true }),
     __metadata("design:type", String)
 ], UserEntity.prototype, "username", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], UserEntity.prototype, "email", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], UserEntity.prototype, "password", void 0);
+__decorate([
+    (0, typeorm_1.BeforeInsert)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], UserEntity.prototype, "emailToLowerCase", null);
 exports.UserEntity = UserEntity = __decorate([
     (0, typeorm_1.Entity)()
 ], UserEntity);
