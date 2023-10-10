@@ -6,7 +6,7 @@ import { Observable, catchError, from, map, switchMap, throwError } from 'rxjs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from '../models/user.entity';
 import { User } from '../models/user.interface';
-import { AuthService } from 'src/auth/auth/auth.service';
+import { AuthService } from 'src/auth/services/auth.service';
 
 @Injectable()
 export class UserService {
@@ -24,6 +24,7 @@ export class UserService {
         newUser.username = user.username;
         newUser.email = user.email;
         newUser.password = passwordHash;
+        newUser.role = user.role;
 
         return from(this.userRepository.save(newUser)).pipe(
           map((user: User) => {
@@ -100,5 +101,9 @@ export class UserService {
 
   findByEmail(email: string): Observable<User> {
     return from(this.userRepository.findOneBy({ email }));
+  }
+
+  updateRoleOfUser(id: number, user: User): Observable<any> {
+    return from(this.userRepository.update(id, user));
   }
 }

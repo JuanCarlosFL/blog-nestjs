@@ -10,4 +10,5 @@ export declare class UserController {
     findAll(): Observable<User[]>;
     deleteOne(id: string): Observable<any>;
     updateOne(id: string, user: User): Observable<any>;
+    updateRoleOfUser(id: string, user: User): Observable<User>;
 }
