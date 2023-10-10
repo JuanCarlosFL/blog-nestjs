@@ -2,7 +2,7 @@ import { Repository } from 'typeorm';
 import { Observable } from 'rxjs';
 import { UserEntity } from '../models/user.entity';
 import { User } from '../models/user.interface';
-import { AuthService } from 'src/auth/auth/auth.service';
+import { AuthService } from 'src/auth/services/auth.service';
 export declare class UserService {
     private readonly userRepository;
     private authService;
@@ -15,4 +15,5 @@ export declare class UserService {
     login(user: User): Observable<string>;
     validateUser(email: string, password: string): Observable<User>;
     findByEmail(email: string): Observable<User>;
+    updateRoleOfUser(id: number, user: User): Observable<any>;
 }

@@ -16,6 +16,10 @@ exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
 const user_service_1 = require("../service/user.service");
 const rxjs_1 = require("rxjs");
+const user_interface_1 = require("../models/user.interface");
+const jwt_guard_1 = require("../../auth/guards/jwt-guard");
+const roles_guards_1 = require("../../auth/guards/roles-guards");
+const roles_decorator_1 = require("../../auth/decorator/roles.decorator");
 let UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
@@ -39,6 +43,9 @@ let UserController = class UserController {
     }
     updateOne(id, user) {
         return this.userService.updateOne(Number(id), user);
+    }
+    updateRoleOfUser(id, user) {
+        return this.userService.updateRoleOfUser(+id, user);
     }
 };
 exports.UserController = UserController;
@@ -64,6 +71,8 @@ __decorate([
     __metadata("design:returntype", rxjs_1.Observable)
 ], UserController.prototype, "findOne", null);
 __decorate([
+    (0, roles_decorator_1.hasRoles)(user_interface_1.UserRole.ADMIN),
+    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard, roles_guards_1.RolesGuard),
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
@@ -84,6 +93,16 @@ __decorate([
     __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", rxjs_1.Observable)
 ], UserController.prototype, "updateOne", null);
+__decorate([
+    (0, roles_decorator_1.hasRoles)(user_interface_1.UserRole.ADMIN),
+    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard, roles_guards_1.RolesGuard),
+    (0, common_1.Put)(':id/role'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", rxjs_1.Observable)
+], UserController.prototype, "updateRoleOfUser", null);
 exports.UserController = UserController = __decorate([
     (0, common_1.Controller)('users'),
     __metadata("design:paramtypes", [user_service_1.UserService])

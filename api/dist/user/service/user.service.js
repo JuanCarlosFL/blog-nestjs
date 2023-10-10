@@ -18,7 +18,7 @@ const typeorm_1 = require("typeorm");
 const rxjs_1 = require("rxjs");
 const typeorm_2 = require("@nestjs/typeorm");
 const user_entity_1 = require("../models/user.entity");
-const auth_service_1 = require("../../auth/auth/auth.service");
+const auth_service_1 = require("../../auth/services/auth.service");
 let UserService = class UserService {
     constructor(userRepository, authService) {
         this.userRepository = userRepository;
@@ -31,6 +31,7 @@ let UserService = class UserService {
             newUser.username = user.username;
             newUser.email = user.email;
             newUser.password = passwordHash;
+            newUser.role = user.role;
             return (0, rxjs_1.from)(this.userRepository.save(newUser)).pipe((0, rxjs_1.map)((user) => {
                 const { password, ...result } = user;
                 return result;
@@ -84,6 +85,9 @@ let UserService = class UserService {
     }
     findByEmail(email) {
         return (0, rxjs_1.from)(this.userRepository.findOneBy({ email }));
+    }
+    updateRoleOfUser(id, user) {
+        return (0, rxjs_1.from)(this.userRepository.update(id, user));
     }
 };
 exports.UserService = UserService;
